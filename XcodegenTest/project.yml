@@ -1,0 +1,42 @@
+name: XcodegenTest # The name of the App
+options: # Some general settings for the project
+  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
+  indentWidth: 2 # indent by 2 spaces
+  tabWidth: 2 # a tab is 2 spaces
+  bundleIdPrefix: "de.number42"
+
+targets: # The List of our targets
+  XcodegenTest:
+    type: application
+    platform: iOS
+    deploymentTarget: "10.3"
+    sources:
+      #Sources
+      - path: XcodegenTest
+    dependencies:
+    - target: XcodegenAppFramework
+    - carthage: Toast
+
+  XcodegenAppFramework:
+    type: framework
+    platform: iOS
+    deploymentTarget: "10.3"
+    sources:
+      - path: XcodegenAppFramework
+
+  XcodegenApp-iOS-Tests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "10.3"
+    sources:
+      - path: XcodegenTestTests
+    dependencies:
+      - target: XcodegenTest
+
+  XcodegenApp-iOS-UITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: XcodegenTestUITests
+    dependencies:
+      - target: XcodegenTest
